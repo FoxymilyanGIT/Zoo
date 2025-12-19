@@ -17,6 +17,8 @@ public class ZooParkBackendApplication {
             System.out.println("SPRING_PROFILES_ACTIVE: " + System.getenv("SPRING_PROFILES_ACTIVE"));
             System.out.println("JWT_SECRET: " + (System.getenv("JWT_SECRET") != null ? "***SET***" : "NOT SET"));
             System.out.println("PORT: " + System.getenv("PORT"));
+            System.out.println("DB_USERNAME: " + System.getenv("DB_USERNAME"));
+            System.out.println("DB_PASSWORD: " + (System.getenv("DB_PASSWORD") != null ? "***SET***" : "NOT SET"));
             System.out.println("Active profiles: " + java.util.Arrays.toString(event.getEnvironment().getActiveProfiles()));
             System.out.println("Default profiles: " + java.util.Arrays.toString(event.getEnvironment().getDefaultProfiles()));
             System.out.println("=== END ENVIRONMENT ===");

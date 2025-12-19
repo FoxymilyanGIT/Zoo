@@ -58,9 +58,15 @@ logging:
     org.springframework.transaction: DEBUG
 
 info:
-  message: "Production profile activated with DATABASE_URL: ${DATABASE_URL}"
+  message: "Production profile activated with DATABASE_URL: ${DATABASE_URL}, RAILWAY_DATABASE_URL: ${RAILWAY_DATABASE_URL}, DB_USERNAME: ${DB_USERNAME}, DB_PASSWORD: ${DB_PASSWORD}"
 
+# Force debug logging for database issues
 logging:
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
-  config: classpath:logback-spring.xml
+  level:
+    com.zaxxer.hikari: DEBUG
+    org.springframework.jdbc.datasource: DEBUG
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
+    org.hibernate: WARN
+    com.example.zoopark: INFO
+    root: INFO
