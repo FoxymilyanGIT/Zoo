@@ -10,7 +10,7 @@ logging:
 
   # Railway предоставляет DATABASE_URL
   datasource:
-    url: ${DATABASE_URL}
+    url: ${DATABASE_URL:${RAILWAY_DATABASE_URL:}}
     # Fallback на случай проблем с Railway DATABASE_URL
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:}

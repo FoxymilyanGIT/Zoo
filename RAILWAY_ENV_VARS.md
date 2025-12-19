@@ -9,6 +9,7 @@
 - `SPRING_PROFILES_ACTIVE`: Профиль Spring (prod)
 - `JAVA_OPTS`: Опции JVM (-Xmx512m -Xms256m)
 - `DEBUG_DB_LEVEL`: Уровень логирования БД (DEBUG для диагностики проблем)
+- `RAILWAY_DATABASE_URL`: Альтернативное имя для DATABASE_URL (если Railway использует другое)
 
 ## Database:
 Railway автоматически предоставит `DATABASE_URL` при подключении PostgreSQL базы данных.

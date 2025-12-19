@@ -13,9 +13,12 @@ public class ZooParkBackendApplication {
         app.addListeners((ApplicationListener<ApplicationEnvironmentPreparedEvent>) event -> {
             System.out.println("=== ENVIRONMENT VARIABLES ===");
             System.out.println("DATABASE_URL: " + System.getenv("DATABASE_URL"));
+            System.out.println("RAILWAY_DATABASE_URL: " + System.getenv("RAILWAY_DATABASE_URL"));
             System.out.println("SPRING_PROFILES_ACTIVE: " + System.getenv("SPRING_PROFILES_ACTIVE"));
             System.out.println("JWT_SECRET: " + (System.getenv("JWT_SECRET") != null ? "***SET***" : "NOT SET"));
             System.out.println("PORT: " + System.getenv("PORT"));
+            System.out.println("Active profiles: " + java.util.Arrays.toString(event.getEnvironment().getActiveProfiles()));
+            System.out.println("Default profiles: " + java.util.Arrays.toString(event.getEnvironment().getDefaultProfiles()));
             System.out.println("=== END ENVIRONMENT ===");
         });
         app.run(args);
