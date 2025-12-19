@@ -35,8 +35,30 @@ Forwarding    https://abc123.ngrok.io -> http://localhost:8080
 
 ## 🌐 Доступ к приложению
 
-- **Главная страница:** `https://ваш-ngrok-url.ngrok.io`
-- **API Health Check:** `https://ваш-ngrok-url.ngrok.io/api/health`
+### После запуска скрипта:
+
+1. **Скопируйте ngrok URL** из терминала ngrok:
+   ```
+   Forwarding    https://abc123.ngrok.io -> http://localhost:8080
+   ```
+
+2. **Настройте frontend для работы с backend:**
+   ```bash
+   # Откройте новый терминал и выполните:
+   cd frontend
+   echo "VITE_API_BASE_URL=https://abc123.ngrok.io" > .env.local
+   ```
+
+3. **ИЛИ настройте переменную окружения:**
+   ```bash
+   # В терминале frontend выполните:
+   set VITE_API_BASE_URL=https://abc123.ngrok.io
+   # И перезапустите npm run dev
+   ```
+
+### Доступ:
+- **Frontend (сайт):** `http://localhost:5173`
+- **Backend API:** `https://abc123.ngrok.io/api/health`
 - **ngrok Dashboard:** `http://localhost:4040`
 
 ## 🛠️ Установка ngrok
