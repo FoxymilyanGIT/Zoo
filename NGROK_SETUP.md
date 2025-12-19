@@ -129,6 +129,12 @@ ERROR: failed to start tunnel: The endpoint is already online
 4. **Запустите** `stop-ngrok.bat` для гарантии
 5. **Альтернатива:** Используйте Railway вместо ngrok для production
 
+### Vite blocks ngrok hosts
+```
+Blocked request. This host ("xyz.ngrok.io") is not allowed.
+```
+**Решение:** Vite блокирует ngrok хосты по умолчанию. Уже исправлено в `vite.config.js`.
+
 ### Ручной способ (если скрипты не работают):
 ```bash
 # В одном терминале - остановка процессов:
