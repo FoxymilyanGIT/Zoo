@@ -8,7 +8,9 @@ echo Download from: https://ngrok.com/download
 echo.
 
 echo Stopping any existing ngrok processes...
-taskkill /f /im ngrok.exe > nul 2>&1
+for /f "tokens=2" %%i in ('tasklist ^| findstr ngrok 2^>nul') do (
+    taskkill /f /pid %%i > nul 2>&1
+)
 timeout /t 2 /nobreak > nul
 
 echo Starting backend server...
