@@ -18,7 +18,7 @@ echo Waiting 15 seconds for backend to start...
 timeout /t 15 /nobreak > nul
 
 echo Starting ngrok tunnel for backend API (port 8080)...
-start "ngrok-backend" cmd /k "ngrok http 8080 --subdomain=zoopark-api"
+start "ngrok-backend" cmd /k "ngrok http 8080"
 
 echo Waiting 5 seconds for backend ngrok...
 timeout /t 5 /nobreak > nul
@@ -30,7 +30,7 @@ echo Waiting 5 seconds for frontend...
 timeout /t 5 /nobreak > nul
 
 echo Starting ngrok tunnel for frontend (port 5173)...
-start "ngrok-frontend" cmd /k "ngrok http 5173 --subdomain=zoopark-app"
+start "ngrok-frontend" cmd /k "ngrok http 5173"
 
 echo.
 echo ================================================
@@ -44,10 +44,10 @@ echo.
 echo 🔧 IMPORTANT SETUP STEPS:
 echo.
 echo 1. Copy BACKEND ngrok URL from ngrok-backend terminal
-echo    (Example: https://zoo-backend.ngrok.io)
+echo    (Example: https://abc123.ngrok.io)
 echo.
 echo 2. Copy FRONTEND ngrok URL from ngrok-frontend terminal
-echo    (Example: https://zoo-frontend.ngrok.io)
+echo    (Example: https://def456.ngrok.io)
 echo.
 echo 3. Configure frontend to connect to backend:
 echo    In a NEW terminal, run:

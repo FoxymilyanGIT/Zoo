@@ -117,9 +117,17 @@ npm run dev
 ERROR: failed to start tunnel: The endpoint is already online
 ```
 **Решение:**
-1. **Остановите существующие туннели:** В терминале выполните `taskkill /f /im ngrok.exe`
-2. **Или используйте разные субдомены:** Добавьте `--subdomain=unique-name` к команде ngrok
-3. **Или перезапустите скрипт** - он автоматически остановит старые процессы
+1. **Остановите существующие туннели:** Запустите `stop-ngrok.bat`
+2. **Или перезапустите скрипт** - он автоматически остановит старые процессы
+
+### ERR_NGROK_313: Custom subdomains require paid plan
+```
+ERROR: Only paid plans may create endpoints with custom subdomains
+```
+**Решение:**
+- Скрипты автоматически используют бесплатные случайные URL
+- Каждый запуск создает новые URL (например: `https://abc123.ngrok.io`)
+- Для постоянных URL нужен платный план ngrok
 
 ### Backend не запускается:
 ```bash
