@@ -51,9 +51,16 @@ logging:
     com.example.zoopark: DEBUG
     org.hibernate.SQL: WARN
     org.hibernate.type.descriptor.sql.BasicBinder: WARN
-    org.springframework.jdbc.datasource: ${DEBUG_DB_LEVEL:INFO}
-    com.zaxxer.hikari: ${DEBUG_DB_LEVEL:INFO}
-    org.springframework.boot.autoconfigure.jdbc: ${DEBUG_DB_LEVEL:INFO}
+    org.springframework.jdbc.datasource: DEBUG
+    com.zaxxer.hikari: DEBUG
+    org.springframework.boot.autoconfigure.jdbc: DEBUG
+    org.springframework.orm.jpa: DEBUG
+    org.springframework.transaction: DEBUG
 
 info:
   message: "Production profile activated with DATABASE_URL: ${DATABASE_URL}"
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  config: classpath:logback-spring.xml
