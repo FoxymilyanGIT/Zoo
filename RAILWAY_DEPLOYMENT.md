@@ -69,6 +69,8 @@
 - Проверьте логи приложения в Railway Dashboard
 - Убедитесь что все переменные окружения настроены правильно
 - Проверьте что PostgreSQL база данных подключена к backend сервису
+- Добавьте `DEBUG_DB_LEVEL=DEBUG` для подробного логирования БД
+- Проверьте `/api/health` endpoint для статуса подключения к БД
 
 ### Ошибка "Railpack could not determine how to build the app"
 - Убедитесь что в корне есть `railway.toml`
