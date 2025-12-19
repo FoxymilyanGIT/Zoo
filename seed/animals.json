@@ -1,0 +1,75 @@
+[
+  {
+    "name": "Лев африканский",
+    "species": "Panthera leo",
+    "zone": "Саванна",
+    "status": "active",
+    "images": ["/uploads/lion1.jpg", "/uploads/lion2.jpg"]
+  },
+  {
+    "name": "Тигр амурский",
+    "species": "Panthera tigris altaica",
+    "zone": "Таёжная зона",
+    "status": "active",
+    "images": ["/uploads/tiger1.jpg"]
+  },
+  {
+    "name": "Жираф",
+    "species": "Giraffa camelopardalis",
+    "zone": "Саванна",
+    "status": "active",
+    "images": ["/uploads/giraffe1.jpg"]
+  },
+  {
+    "name": "Слон африканский",
+    "species": "Loxodonta africana",
+    "zone": "Саванна",
+    "status": "active",
+    "images": ["/uploads/elephant1.jpg"]
+  },
+  {
+    "name": "Пингвин",
+    "species": "Aptenodytes forsteri",
+    "zone": "Антарктика",
+    "status": "active",
+    "images": ["/uploads/penguin1.jpg"]
+  },
+  {
+    "name": "Фламинго",
+    "species": "Phoenicopterus",
+    "zone": "Лагуна",
+    "status": "active",
+    "images": ["/uploads/flamingo1.jpg"]
+  },
+  {
+    "name": "Енот",
+    "species": "Procyon lotor",
+    "zone": "Лес",
+    "status": "active",
+    "images": ["/uploads/raccoon1.jpg"]
+  },
+  {
+    "name": "Панда красная",
+    "species": "Ailurus fulgens",
+    "zone": "Горный лес",
+    "status": "active",
+    "images": ["/uploads/redpanda1.jpg"]
+  },
+  {
+    "name": "Кенгуру",
+    "species": "Macropus",
+    "zone": "Австралия",
+    "status": "active",
+    "images": ["/uploads/kangaroo1.jpg"]
+  },
+  {
+    "name": "Зебра",
+    "species": "Equus quagga",
+    "zone": "Саванна",
+    "status": "active",
+    "images": ["/uploads/zebra1.jpg"]
+  }
+]
+
+
+

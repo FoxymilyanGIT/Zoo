@@ -1,0 +1,23 @@
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+
+# Java / backend
+backend/target/
+backend/uploads/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Env
+.env
+frontend/.env
+frontend/.env.local
+
+# Uploads (keep folder)
+uploads/*
+!uploads/.gitkeep
+
+

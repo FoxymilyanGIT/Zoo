@@ -1,0 +1,27 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/zoopark
+    username: zoouser
+    password: zoopassword
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+server:
+  port: 8080
+
+zoopark:
+  jwt:
+    secret: changeme-secret-please-change-32bytes
+    expiration-seconds: 3600
+  uploads:
+    dir: uploads
+
+

@@ -1,0 +1,152 @@
+## ZooPark — курсовой проект (monorepo)
+
+Полнофункциональное приложение «Сайт зоопарка» с публичным каталогом животных, событиями, покупкой/бронь билетов и админ‑панелью. Монорепозиторий без Docker: backend на Spring Boot + PostgreSQL, frontend на React (Vite).
+
+### Основные возможности
+
+- Публичный каталог животных с поиском/фильтрами, страница животного с галереей и картой вольеров (Leaflet).
+- Новости зоопарка, список событий/мероприятий, страница события и регистрация с учетом вместимости.
+- Пользовательские аккаунты (регистрация/вход по JWT, роли `user`/`admin`), список личных билетов.
+- Покупка билетов (эмуляция оплаты) и генерация уникального кода, возможность привязать к событию.
+- Админ‑панель c защитой по роли для CRUD животных, новостей и событий + загрузка фотографий.
+- REST API с OpenAPI/Swagger (`/swagger-ui.html`), Flyway миграции и seed‑данные (10 животных, 3 события, admin/user).
+- Минимальные тесты: JUnit + Testcontainers (backend), Jest + React Testing Library (frontend).
+
+### Структура репозитория
+
+- `backend/` — Spring Boot сервис (Web, Data JPA, Security + JWT, Flyway, PostgreSQL, springdoc-openapi).
+- `frontend/` — Vite + React + TailwindCSS SPA (React Router v7, React Context, Formik+Yup, Leaflet, i18n RU/EN).
+- `sql/migrations/` — те же SQL-миграции, вынесенные для удобного просмотра/импорта.
+- `seed/` — JSON-файлы с начальными данными + README.
+- `.github/workflows/ci.yml` — GitHub Actions (backend build/test + frontend build/test).
+- `uploads/` — локальное хранилище загруженных фото (dev) с `.gitkeep`.
+
+---
+
+## Быстрый старт
+
+### 1. Требования
+
+- **Java 17**, **Maven 3.9+**
+- **Node.js 20.19.x** (или ≥ 22.12) и **npm 10+**
+- **PostgreSQL 15+**
+- Git, cURL (для проверки API)
+
+### 2. Настройка окружения
+
+Создайте базу данных `zoopark` и пользователя:
+
+```sql
+CREATE DATABASE zoopark;
+CREATE USER zoouser WITH PASSWORD 'zoopassword';
+GRANT ALL PRIVILEGES ON DATABASE zoopark TO zoouser;
+```
+
+Скопируйте пример `.env` (см. ниже) или задайте переменные среды.
+
+#### Backend (`backend/src/main/resources/application.yml`)
+
+| Переменная | Назначение | Значение по умолчанию |
+|------------|------------|------------------------|
+| `SPRING_DATASOURCE_URL` | JDBC строка | `jdbc:postgresql://localhost:5432/zoopark` |
+| `SPRING_DATASOURCE_USERNAME` | пользователь БД | `zoouser` |
+| `SPRING_DATASOURCE_PASSWORD` | пароль БД | `zoopassword` |
+| `ZOOPARK_JWT_SECRET` | секрет для JWT (минимум 32 байта) | `changeme-secret-please-change-32bytes` |
+| `ZOOPARK_JWT_EXPIRATION-SECONDS` | TTL токена | `3600` |
+| `ZOOPARK_UPLOADS_DIR` | папка для загруженных фото | `uploads` |
+
+#### Frontend (`frontend/.env.local`)
+
+```
+VITE_API_URL=http://localhost:8080
+```
+
+### 3. Запуск backend
+
+```bash
+cd backend
+mvn clean install
+mvn spring-boot:run
+```
+
+- Flyway применит миграции и наполнит БД (10 животных, 2 новости, 3 события).
+- Компонент `DataInitializer` создаст пользователей:
+  - `admin@example.com / Passw0rd!`
+  - `user@example.com / User1234!`
+- Swagger UI: http://localhost:8080/swagger-ui.html
+
+### 4. Запуск frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Приложение доступно на http://localhost:5173. Для продакшен-сборки `npm run build`. Тесты — `npm test`.
+
+> ⚠️ Vite 7 требует Node **20.19+** или **≥22.12**. На локальной Windows стоит 22.11, поэтому в консоли будут предупреждения, однако сборка и тесты выполняются (см. требования для стабильной работы).
+
+### 5. Seed-данные и миграции вручную
+
+- Основной seed находится в `backend/src/main/resources/db/migration/V1__init_schema_and_seed.sql`.
+- Копия в `sql/migrations/` упрощает импорт через `psql` или GUI.
+- Читаемые JSON-файлы в `seed/` (animals/events/users) можно использовать для дополнительных скриптов.
+
+---
+
+## API (основные endpoints)
+
+- `POST /api/auth/register`, `POST /api/auth/login` → JWT
+- `GET /api/animals`, `GET /api/animals/{id}` (+ `q`, `species`, `zone`, `status`, `page`, `size`)
+- `POST /api/animals`, `PUT /api/animals/{id}`, `DELETE /api/animals/{id}` — только admin
+- `GET /api/news` + admin CRUD
+- `GET /api/events`, `GET /api/events/{id}`, `POST /api/events/{id}/register` (для авторизованных пользователей)
+- `POST /api/events`, `PUT /api/events/{id}`, `DELETE /api/events/{id}` — только admin
+- `POST /api/tickets` — покупка/бронирование, `GET /api/tickets`, `GET /api/tickets/{id}`
+- `POST /api/uploads` — загрузка изображений (admin), файлы хранятся локально в `uploads/`
+
+Примеры запросов (cURL):
+
+```bash
+# логин
+curl -X POST http://localhost:8080/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@example.com","password":"Passw0rd!"}'
+
+# регистрация на событие
+curl -X POST http://localhost:8080/api/events/1/register \
+  -H "Authorization: Bearer <JWT>"
+
+# покупка 2 билетов без события
+curl -X POST http://localhost:8080/api/tickets \
+  -H "Authorization: Bearer <JWT>" \
+  -H "Content-Type: application/json" \
+  -d '{"quantity":2}'
+```
+
+---
+
+## Тесты и CI
+
+- **Backend:** `mvn test` (JUnit + MockMvc + Testcontainers PostgreSQL). Требуется Docker (локально) или GitHub Runner.
+- **Frontend:** `npm test` (Jest + React Testing Library) + `npm run build`.
+- **CI:** `.github/workflows/ci.yml` выполняет:
+  - Backend: `mvn -pl backend -am clean verify`
+  - Frontend: `npm ci`, `npm run test`, `npm run build`
+
+---
+
+## Полезные заметки
+
+- Пароли всегда хэшируются через BCrypt, JWT содержит роль пользователя.
+- Оплата билетов имитируется: endpoint всегда возвращает успешный ответ и код билета.
+- Leaflet отображает несколько первых животных на карте с координатами-заглушками.
+- i18n: переключатель RU/EN расположен справа в шапке.
+- Для загрузки изображений в админке можно выбрать файл или указать URL. Файлы сохраняются в `uploads/` и автоматически раздаются через `/uploads/**`.
+
+---
+
+
+
+Проект готов к локальному запуску: `npm run dev` (frontend) + `mvn spring-boot:run` (backend).🐾
