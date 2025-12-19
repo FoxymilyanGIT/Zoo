@@ -20,6 +20,12 @@ run-with-ngrok-interactive.bat
 run-backend-public-frontend-local.bat
 ```
 
+### Вариант 3: Полностью публичное приложение
+```bash
+# И backend И frontend доступны из интернета:
+run-fully-public.bat
+```
+
 ### Вариант 3: Простой скрипт (обе службы публичные)
 ```bash
 # Дважды кликните на run-with-ngrok.bat

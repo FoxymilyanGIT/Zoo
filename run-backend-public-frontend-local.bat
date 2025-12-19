@@ -22,31 +22,60 @@ timeout /t 5 /nobreak > nul
 echo Starting frontend development server locally...
 start "Frontend-Local" cmd /k "cd frontend && npm run dev"
 
+echo Waiting 5 seconds for frontend...
+timeout /t 5 /nobreak > nul
+
+set /p make_public="Make frontend public too? (y/n): "
+if /i "%make_public%"=="y" goto make_frontend_public
+if /i "%make_public%"=="yes" goto make_frontend_public
+
 echo.
 echo ================================================
 echo 🔧 BACKEND PUBLIC + FRONTEND LOCAL
 echo ================================================
 echo.
-echo ✅ Backend API is PUBLIC via ngrok (check ngrok terminal)
+echo ✅ Backend API is PUBLIC via ngrok-backend terminal
 echo ✅ Frontend runs LOCALLY at http://localhost:5173
 echo ✅ Frontend can connect to public backend API
 echo.
+goto instructions
+
+:make_frontend_public
+echo Starting ngrok tunnel for frontend...
+start "ngrok-frontend" cmd /k "ngrok http 5173"
+
+echo.
+echo ================================================
+echo 🚀 FULLY PUBLIC APPLICATION!
+echo ================================================
+echo.
+echo ✅ Backend API is PUBLIC via ngrok-backend terminal
+echo ✅ Frontend is PUBLIC via ngrok-frontend terminal
+echo ✅ Anyone can access your complete application!
+echo.
+
+:instructions
 echo 📋 NEXT STEPS:
 echo.
-echo 1. Copy the ngrok URL from ngrok-backend terminal
+echo 1. Copy the ngrok URL for backend from ngrok-backend terminal
 echo    (Example: https://abc123.ngrok.io)
 echo.
-echo 2. Configure frontend to use this API URL:
-echo    cd frontend
-echo    echo VITE_API_BASE_URL=https://YOUR_NGROK_URL.ngrok.io > .env.local
+if /i "%make_public%"=="y" (
+    echo 2. Frontend is now public! Check ngrok-frontend terminal for URL
+    echo 3. Share both URLs with anyone!
+) else (
+    echo 2. Configure frontend to use backend API:
+    echo    cd frontend
+    echo    echo VITE_API_BASE_URL=https://YOUR_NGROK_URL.ngrok.io > .env.local
+    echo.
+    echo 3. Restart frontend if needed:
+    echo    Ctrl+C in frontend terminal, then: npm run dev
+    echo.
+    echo 4. Visit your local frontend: http://localhost:5173
+    echo    (It will connect to the public backend API!)
+)
 echo.
-echo 3. Restart frontend (if needed):
-echo    Ctrl+C in frontend terminal, then: npm run dev
-echo.
-echo 4. Visit your local frontend: http://localhost:5173
-echo    (It will connect to the public backend API!)
-echo.
-echo 🎉 Your setup: Local website connecting to public API!
+echo 🎉 Your setup: %make_public%ublic website connecting to public API!
 echo.
 echo 📊 ngrok Dashboard: http://127.0.0.1:4040
 echo 🔍 Backend Health Check: [your-ngrok-url]/api/health
