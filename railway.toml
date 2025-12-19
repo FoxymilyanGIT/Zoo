@@ -1,0 +1,37 @@
+[build]
+builder = "NIXPACKS"
+
+[deploy]
+startCommand = "./start.sh"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+[environments.default]
+DATABASE_URL = "${{ DATABASE_URL }}"
+JWT_SECRET = "${{ JWT_SECRET }}"
+JWT_EXPIRATION_SECONDS = "${{ JWT_EXPIRATION_SECONDS }}"
+UPLOADS_DIR = "${{ UPLOADS_DIR }}"
+
+[environments.default.variables]
+SPRING_PROFILES_ACTIVE = "prod"
+JAVA_OPTS = "-Xmx512m -Xms256m"
+
+# Frontend build configuration
+[[services]]
+name = "frontend"
+source = { path = "frontend" }
+buildCommand = "npm run build"
+startCommand = "npm run preview -- --host 0.0.0.0 --port $PORT"
+healthcheckPath = "/"
+healthcheckTimeout = 60
+
+# Backend build configuration
+[[services]]
+name = "backend"
+source = { path = "backend" }
+buildCommand = "./mvnw clean package -DskipTests"
+startCommand = "java -jar target/*.jar"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 300
