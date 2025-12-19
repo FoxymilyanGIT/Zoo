@@ -65,21 +65,32 @@
 
 ## Troubleshooting
 
+### Healthcheck fails (service unavailable)
+- Проверьте логи приложения в Railway Dashboard
+- Убедитесь что все переменные окружения настроены правильно
+- Проверьте что PostgreSQL база данных подключена к backend сервису
+
 ### Ошибка "Railpack could not determine how to build the app"
 - Убедитесь что в корне есть `railway.toml`
 - Проверьте что `start.sh` исполняемый: `chmod +x start.sh`
 
 ### Backend не может подключиться к БД
 - Проверьте что PostgreSQL добавлен в проект
-- Убедитесь что `DATABASE_URL` доступна
+- Убедитесь что `DATABASE_URL` доступна в переменных backend сервиса
+- Проверьте правильность `JWT_SECRET` (минимум 32 символа)
 
 ### Frontend не может достучаться до API
 - Настройте `VITE_API_BASE_URL` в переменных окружения frontend сервиса
-- URL должен указывать на backend сервис Railway
+- URL должен указывать на backend сервис Railway (без /api)
 
 ### Ошибки сборки
 - Backend: проверьте Java 17 compatibility
 - Frontend: убедитесь что все зависимости в package.json
+
+### Логи и мониторинг
+- Просматривайте логи через Railway Dashboard → Services → Logs
+- Используйте `railway logs` для просмотра логов через CLI
+- Healthcheck endpoint: `/api/health` (для backend)
 
 ## Мониторинг
 
