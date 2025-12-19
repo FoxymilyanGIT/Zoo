@@ -7,6 +7,10 @@ echo Make sure ngrok is installed!
 echo Download from: https://ngrok.com/download
 echo.
 
+echo Stopping any existing ngrok processes...
+taskkill /f /im ngrok.exe > nul 2>&1
+timeout /t 2 /nobreak > nul
+
 echo Starting backend server...
 start "Backend" cmd /k "cd backend && java -jar target/zoopark-backend-0.0.1-SNAPSHOT.jar"
 
@@ -14,7 +18,7 @@ echo Waiting 15 seconds for backend to start...
 timeout /t 15 /nobreak > nul
 
 echo Starting ngrok tunnel for backend API (port 8080)...
-start "ngrok-backend" cmd /k "ngrok http 8080"
+start "ngrok-backend" cmd /k "ngrok http 8080 --subdomain=zoopark-api"
 
 echo Waiting 5 seconds for backend ngrok...
 timeout /t 5 /nobreak > nul
@@ -26,7 +30,7 @@ echo Waiting 5 seconds for frontend...
 timeout /t 5 /nobreak > nul
 
 echo Starting ngrok tunnel for frontend (port 5173)...
-start "ngrok-frontend" cmd /k "ngrok http 5173"
+start "ngrok-frontend" cmd /k "ngrok http 5173 --subdomain=zoopark-app"
 
 echo.
 echo ================================================
