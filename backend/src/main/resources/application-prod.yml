@@ -29,10 +29,14 @@ spring:
     show-sql: false
 
   flyway:
-    enabled: true
+    enabled: ${FLYWAY_ENABLED:true}
     locations: classpath:db/migration
     # Отключаем валидацию для Railway
     validate-on-migrate: false
+    # Явно указываем datasource для Flyway
+    url: ${DATABASE_URL}
+    user: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD}
 
 server:
   port: ${PORT:8080}
@@ -56,6 +60,7 @@ logging:
     org.springframework.boot.autoconfigure.jdbc: DEBUG
     org.springframework.orm.jpa: DEBUG
     org.springframework.transaction: DEBUG
+    org.flywaydb: DEBUG
 
 info:
   message: "Production profile activated with DATABASE_URL: ${DATABASE_URL}, RAILWAY_DATABASE_URL: ${RAILWAY_DATABASE_URL}, DB_USERNAME: ${DB_USERNAME}, DB_PASSWORD: ${DB_PASSWORD}"
