@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/zoopark
-    username: zoouser
-    password: zoopassword
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/zoopark}
+    username: ${DB_USERNAME:zoouser}
+    password: ${DB_PASSWORD:zoopassword}
   jpa:
     hibernate:
       ddl-auto: validate
