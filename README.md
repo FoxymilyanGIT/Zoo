@@ -129,7 +129,7 @@ curl -X POST http://localhost:8080/api/tickets \
 
 ## Тесты и CI
 
-- **Backend:** `mvn test` (JUnit + MockMvc + Testcontainers PostgreSQL). Требуется Docker (локально) или GitHub Runner.
+- **Backend:** `mvn test` (JUnit + MockMvc + Testcontainers PostgreSQL).
 - **Frontend:** `npm test` (Jest + React Testing Library) + `npm run build`.
 - **CI:** `.github/workflows/ci.yml` выполняет:
   - Backend: `mvn -pl backend -am clean verify`
