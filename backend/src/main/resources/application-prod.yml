@@ -3,12 +3,24 @@ spring:
     activate:
       on-profile: prod
 
+logging:
+  level:
+    root: INFO
+    com.example.zoopark: DEBUG
+
   # Railway предоставляет DATABASE_URL
   datasource:
     url: ${DATABASE_URL}
     # Fallback на случай проблем с Railway DATABASE_URL
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:}
+
+logging:
+  level:
+    com.example.zoopark: INFO
+    org.springframework.jdbc.datasource: ${DEBUG_DB_LEVEL:INFO}
+    com.zaxxer.hikari: ${DEBUG_DB_LEVEL:INFO}
+    root: INFO
     # Дополнительные параметры для надежного подключения
     hikari:
       connection-timeout: 60000
@@ -54,3 +66,6 @@ logging:
     org.springframework.jdbc.datasource: ${DEBUG_DB_LEVEL:INFO}
     com.zaxxer.hikari: ${DEBUG_DB_LEVEL:INFO}
     org.springframework.boot.autoconfigure.jdbc: ${DEBUG_DB_LEVEL:INFO}
+
+info:
+  message: "Production profile activated with DATABASE_URL: ${DATABASE_URL}"
