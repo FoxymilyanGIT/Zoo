@@ -1,0 +1,14 @@
+# Исключаем backend из развертывания на Vercel
+backend/
+sql/
+seed/
+uploads/
+diagrams/
+*.md
+!README.md
+.gitignore
+.env*
+!FRONTEND_ENV_EXAMPLE.txt
+railway.toml
+start.sh
+pom.xml

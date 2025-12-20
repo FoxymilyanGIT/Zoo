@@ -9,7 +9,9 @@
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=frontend\" \"npm run dev --workspace=backend\"",
-    "build": "npm run build --workspace=frontend && npm run build --workspace=backend",
+    "build": "cd frontend && npm install && npm run build",
+    "build:frontend": "npm run build --workspace=frontend",
+    "build:backend": "npm run build --workspace=backend",
     "start": "npm run start --workspace=backend",
     "test": "npm run test --workspace=frontend && npm run test --workspace=backend",
     "install:all": "npm install && npm run install --workspace=frontend && npm run install --workspace=backend"
@@ -18,7 +20,7 @@
     "concurrently": "^8.2.2"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=20.19.0",
+    "npm": ">=10.0.0"
   }
 }
