@@ -1,7 +1,9 @@
 import axios from "axios";
 
+const baseURL = import.meta.env.VITE_API_BASE_URL || process.env.REACT_APP_API_BASE_URL || "api";
+
 export const api = axios.create({
-  baseURL: ""
+  baseURL
 });
 
 api.interceptors.request.use((config) => {
@@ -13,5 +15,3 @@ api.interceptors.request.use((config) => {
 });
 
 export const useApi = () => api;
-
-
