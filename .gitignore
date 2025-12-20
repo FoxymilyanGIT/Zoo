@@ -15,7 +15,7 @@ backend/uploads/
 .env
 frontend/.env
 frontend/.env.local
-
+frontend/node_modules/
 # Uploads (keep folder)
 uploads/*
 !uploads/.gitkeep

@@ -1,0 +1,10 @@
+# Пример переменных окружения для frontend
+# Скопируйте этот файл как frontend/.env.local для локальной разработки
+# Или настройте переменные в Vercel Dashboard
+
+# API URL для подключения к backend
+# Для локальной разработки:
+VITE_API_URL=http://localhost:8080
+
+# Для production (замените на ваш backend URL):
+# VITE_API_URL=https://your-backend-app.railway.app
