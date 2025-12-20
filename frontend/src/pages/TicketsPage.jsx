@@ -32,8 +32,8 @@ export const TicketsPage = () => {
       navigate("/login");
       return;
     }
-    api.get("/api/tickets").then(({ data }) => setTickets(data));
-    api.get("/api/events").then(({ data }) => setEvents(data));
+    api.get("/tickets").then(({ data }) => setTickets(data));
+    api.get("/events").then(({ data }) => setEvents(data));
   }, [user, navigate]);
 
   return (
@@ -51,7 +51,7 @@ export const TicketsPage = () => {
               quantity: Number(values.quantity),
               eventId: values.eventId ? Number(values.eventId) : undefined
             };
-            const { data } = await api.post("/api/tickets", payload);
+            const { data } = await api.post("/tickets", payload);
             setTickets((prev) => [...data, ...prev]);
             helpers.resetForm();
           }}

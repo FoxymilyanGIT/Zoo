@@ -54,9 +54,9 @@ export const AdminDashboard = () => {
   }, []);
 
   const loadData = () => {
-    api.get("/api/animals").then(({ data }) => setAnimals(data.content || []));
-    api.get("/api/events").then(({ data }) => setEvents(Array.isArray(data) ? data : []));
-    api.get("/api/news").then(({ data }) => setNews(Array.isArray(data) ? data : []));
+    api.get("/animals").then(({ data }) => setAnimals(data.content || []));
+    api.get("/events").then(({ data }) => setEvents(Array.isArray(data) ? data : []));
+    api.get("/news").then(({ data }) => setNews(Array.isArray(data) ? data : []));
   };
 
   const showMessage = (type, message, isError = false) => {
@@ -85,7 +85,7 @@ export const AdminDashboard = () => {
       formData.append("file", file);
       
       // НЕ устанавливаем Content-Type вручную - браузер сделает это сам с boundary
-      const { data } = await api.post("/api/uploads", formData, {
+      const { data } = await api.post("/uploads", formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
@@ -174,7 +174,7 @@ export const AdminDashboard = () => {
       return;
     }
     try {
-      await api.delete(`/api/${type === "animal" ? "animals" : type === "event" ? "events" : "news"}/${id}`);
+      await api.delete(`/${type === "animal" ? "animals" : type === "event" ? "events" : "news"}/${id}`);
       loadData();
       const deletedMsg = type === "animal" ? t("animalDeleted") : type === "event" ? t("eventDeleted") : t("newsDeleted");
       showMessage(type, deletedMsg);
@@ -198,7 +198,7 @@ export const AdminDashboard = () => {
           endTime: formatDateTime(values.endTime)
         };
       }
-      await api.put(`/api/${type === "animal" ? "animals" : type === "event" ? "events" : "news"}/${id}`, payload);
+      await api.put(`/${type === "animal" ? "animals" : type === "event" ? "events" : "news"}/${id}`, payload);
       loadData();
       setEditing({ type: null, id: null, data: null });
       const updatedMsg = type === "animal" ? t("animalUpdated") : type === "event" ? t("eventUpdated") : t("newsUpdated");
@@ -250,7 +250,7 @@ export const AdminDashboard = () => {
                 if (editing.type === "animal" && editing.id) {
                   await handleUpdate("animal", editing.id, payload);
                 } else {
-                  const { data } = await api.post("/api/animals", payload);
+                  const { data } = await api.post("/animals", payload);
                   console.log("Animal created:", data);
                   setAnimals((prev) => [data, ...prev]);
                   showMessage("animal", t("animalAdded"));
