@@ -8,3 +8,4 @@ VITE_API_URL=http://localhost:8080
 
 # Для production (замените на ваш backend URL):
 # VITE_API_URL=https://your-backend-app.railway.app
+
