@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "$NGROK_BACKEND_URL/api/:path*"
+      "destination": "$NGROK_BACKEND_URL/:path*"
     }
   ]
 }
