@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api",
-      "destination": "$NGROK_BACKEND_URL/api/:path*"
+      "source": "/api/:path*",
+      "destination": "$NGROK_BACKEND_URL/:path*"
     }
   ]
 }
