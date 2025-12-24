@@ -17,7 +17,7 @@ export const EventsPage = () => {
     if (type) params.type = type;
     if (q) params.q = q;
     api
-      .get("/api/events", { params })
+      .get("/events", { params })
       .then(({ data }) => {
         console.log("Events data:", data); // Debug
         setEvents(Array.isArray(data) ? data : []);

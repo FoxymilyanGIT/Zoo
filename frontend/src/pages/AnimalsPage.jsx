@@ -23,7 +23,7 @@ export const AnimalsPage = () => {
         if (species) params.species = species;
         if (zone) params.zone = zone;
         if (status) params.status = status;
-        const { data } = await api.get("/api/animals", { params });
+        const { data } = await api.get("/animals", { params });
         console.log("Animals data:", data); // Debug
         setAnimals(data.content || []);
         setPagination(data);
@@ -39,7 +39,7 @@ export const AnimalsPage = () => {
   }, [q, species, zone, status, page]);
 
   useEffect(() => {
-    api.get("/api/news").then(({ data }) => setNews(data));
+    api.get("/news").then(({ data }) => setNews(data));
   }, []);
 
   const uniqueZones = useMemo(() => [...new Set(animals.map((a) => a.zone))], [animals]);

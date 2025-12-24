@@ -24,7 +24,7 @@ export const EventDetailPage = () => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    api.get(`/api/events/${id}`).then(({ data }) => setEvent(data));
+    api.get(`/events/${id}`).then(({ data }) => setEvent(data));
   }, [id]);
 
   const handleRegister = async () => {
@@ -32,7 +32,7 @@ export const EventDetailPage = () => {
       navigate("/login");
       return;
     }
-    const { data } = await api.post(`/api/events/${id}/register`);
+    const { data } = await api.post(`/events/${id}/register`);
     setMessage(`${t("ticketSuccess")} ${data.code}`);
   };
 

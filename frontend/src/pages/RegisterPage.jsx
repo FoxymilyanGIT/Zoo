@@ -26,7 +26,7 @@ export const RegisterPage = () => {
         validationSchema={schema(t)}
         onSubmit={async (values, helpers) => {
           try {
-            const { data } = await api.post("/api/auth/register", values);
+            const { data } = await api.post("/auth/register", values);
             login(data.token);
             navigate("/");
           } catch {

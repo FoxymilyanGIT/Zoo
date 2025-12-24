@@ -410,7 +410,7 @@ export const AdminDashboard = () => {
                     startTime: formatDateTime(values.startTime),
                     endTime: formatDateTime(values.endTime)
                   };
-                  const { data } = await api.post("/api/events", payload);
+                  const { data } = await api.post("/events", payload);
                   setEvents((prev) => [data, ...prev]);
                   showMessage("event", t("eventAdded"));
                 }
@@ -477,7 +477,7 @@ export const AdminDashboard = () => {
                 if (editing.type === "news" && editing.id) {
                   await handleUpdate("news", editing.id, values);
                 } else {
-                  const { data } = await api.post("/api/news", values);
+                  const { data } = await api.post("/news", values);
                   setNews((prev) => [data, ...prev]);
                   showMessage("news", t("newsPublished"));
                 }

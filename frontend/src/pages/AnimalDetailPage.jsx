@@ -34,7 +34,7 @@ export const AnimalDetailPage = () => {
 
   useEffect(() => {
     api
-      .get(`/api/animals/${id}`)
+      .get(`/animals/${id}`)
       .then(({ data }) => setAnimal(data))
       .catch(() => setError(t("animalNotFound")));
   }, [id, t]);

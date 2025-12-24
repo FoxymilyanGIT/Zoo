@@ -26,7 +26,7 @@ export const LoginPage = () => {
         validationSchema={schema(t)}
         onSubmit={async (values, helpers) => {
           try {
-            const { data } = await api.post("/api/auth/login", values);
+            const { data } = await api.post("/auth/login", values);
             login(data.token);
             navigate("/");
           } catch {
